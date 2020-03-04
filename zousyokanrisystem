@@ -1,0 +1,101 @@
+require 'date' 
+ 
+class BookInfo 
+ attr_accessor :title, :author, :pages, :publish_date 
+ def initialize(title="", author="", pages=0, publish_date=Date.new)    
+   @title = title 
+   @author = author 
+   @pages = pages 
+   @publish_date = publish_date 
+ end 
+ 
+ def to_s 
+   "#{@title},#{@author},#{@pages},#{@publish_date.to_s}"  
+ end 
+
+ def toFormattedString(sep="\n") 
+   "書籍名：#{@title}#{sep}著者名：#{@author}#{sep}ページ数：#{@pages.to_s}#{sep}発刊日：#{@publish_date.to_s}#{sep}" 
+ end 
+end  
+
+class BookInfoManager  
+  def initialize(fname) 
+   @csv_file = fname 
+   @book_infos = [] 
+ 
+    if File.exists?(@csv_file)     
+      open(@csv_file, "r") do |f|
+        f.each do |l|          
+         title, author, pages, 
+         publish_date = l.chomp.split(",") 
+         @book_infos << BookInfo.new(title, author, pages, 
+         Date.parse(publish_date)) 
+        end     
+      end 
+    end 
+  end 
+ 
+ def addBookInfo   
+   book_info = BookInfo.new(",",0,Date.new) 
+   print"書籍名:"
+   book_info.title = gets.chomp
+   print"著者名:"
+   book_info.author = gets.chomp
+   print"ページ数:" 
+   book_info.pages = gets.chomp.to_i
+   print"発刊年:"
+   year = gets.chomp.to_i
+   print"発刊月:"
+   month = gets.chomp.to_i
+   print"発刊日:"
+   day = gets.chomp.to_i 
+   book_info.publish_date = Date.new(year,month,day) 
+   @book_infos << book_info 
+ end  
+ 
+ def listAllBookInfos   
+  @book_infos.each do |info|      
+    print info.toFormattedString   
+  end unless @book_infos.nil? 
+ end 
+ 
+ def saveAllBookInfos 
+   f = open("./output.txt", "w")  
+   f.puts @book_infos 
+   f.close 
+ end  
+
+ def run 
+   while true
+     puts "0.蔵書データベースの初期化"
+     puts "1.蔵書データの登録"
+     puts "2.蔵書データの表示"
+     puts "8.蔵書データのファイルへ保存"
+     puts "9.終了"
+     print "番号を選んでください(0,1,2,8,9):"
+
+      num = gets.chomp 
+     case  
+       when '0' == num         
+        initialize
+       when '1' == num
+        addBookInfo
+        @saved = false
+       when '2' == num
+        listAllBookInfos 
+       when '8'  == num
+        saveAllBookInfos 
+        @saved = true
+       when '9'  == num
+        if @saved
+          break
+        else
+          puts "ファイルに保存されていません"
+        end
+     end  
+   end  
+  end
+end  
+
+bim = BookInfoManager.new("./input.csv")
+bim.run  
