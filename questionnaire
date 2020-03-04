@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+</head>
+
+<body>  
+  <p>
+   学籍番号:<input type="number"name="pb"value=""/>
+  </p>
+
+  <p>
+    名前:<input type="text"name="tb"value=""/>
+　</p>
+  <p>
+    学科: <input type="checkbox"name="rb"value="建築">建築 <input type="checkbox"name="rb"value="電気電子">電気電子 <input type="checkbox"name="rb"value="生物循環">生物循環 <input type="checkbox"name="rb"value="情報">情報
+   <input type="checkbox"name="rb"value="経営">経営
+  </p>
+  <p>
+    学年: <input type="radio"name="cb"value="1 年生"checked>1年生 
+    <input type="radio"name="cb"value="2 年生"checked>2年生 
+    <input type="radio"name="cb"value="3 年生"checked>3年生 
+    <input type="radio"name="cb"value="4 年生"checked>4年生
+  <p>
+   性別: <select name="combo">
+   <option value="男"checked>男 <option value="女"checked>女</select>
+  </p>
+
+  <p>
+    授業評価:<select name = "combo">
+      <option value="非常にそう思う"checked>非常にそう思う
+      <option value="そう思う"checked>そう思う
+      <option value="どちらとも言えない"checked>どちらとも言えない
+      <option value="そう思わない"checked>そう思わない
+      <option value="全く思わない"checked>全く思わない
+    </select>
+  </p>
+
+ <p>
+   質問 :
+    <textarea name ="ta" rows ="4" cols = "50" ></textarea> 
+  </p>
+
+  	<form action="/aaa">
+		<p>
+			サブミットボタン:<input type="submit"name="sd"value"決定 </p>
+
+  <p>
+   リセットボタン:<input type="reset"/>
+  </p>
+  
+</form>
+</body>
+</html>
